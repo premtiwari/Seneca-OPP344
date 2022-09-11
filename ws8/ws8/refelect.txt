@@ -1,0 +1,36 @@
+
+Q1 the advantage that smart pointer syntax provides. Use example from your code to support your explanation.
+
+SmartPtr object goes into the stack that is automatically destroyed when it goes out of scope.
+
+advantage 
+
+safe exception handling
+
+automatic initialization
+
+automatic destruction of the owned object at the appropriate time
+
+declaration way
+
+std::shared_ptr<EmployeeWage> newEW(new EmployeeWage( emp[i].name,sal[j].salary ));
+
+push method 
+
+        void operator+=(const  std::shared_ptr<T> data)
+        {
+            list.push_back(*data);
+        }
+
+Q2 the difference between raw and smart pointer syntax in your solution.
+
+
+
+smart 
+
+std::shared_ptr<EmployeeWage> newEW(new EmployeeWage( emp[i].name,sal[j].salary ));
+
+
+raw
+
+ EmployeeWage *newEW = new EmployeeWage(emp[i].name,sal[j].salary);

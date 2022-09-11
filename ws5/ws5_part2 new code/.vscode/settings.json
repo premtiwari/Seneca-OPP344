@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "xstring": "cpp",
+        "iterator": "cpp",
+        "system_error": "cpp"
+    }
+}

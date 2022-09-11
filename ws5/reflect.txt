@@ -1,0 +1,94 @@
+Q1. Identify which components of your solution are the observers, subjects, and the events per the observer pattern. 
+
+You can read online about the Observer Pattern. Justify your answer!
+
+A subject is a job class. The Processor is an example of a subject. and CentralUnit module are observers.
+
+The observer pattern is a software design pattern in which an object, named the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods. 
+
+Job class is used by Processor and CentralUnit, therefor it is subject and Processor and CentralUnit are observers.
+
+
+========================================================================================================================================================================================================================================================================================
+
+
+
+Q2. Why did we need to use an std::function object? 
+
+What are the pros and cons of using it (mention at least 1 of each)?
+
+a std::function whose result type is a reference initialized from a lambda expression without a trailing-return-type. Due to the way auto deduction works, such lambda expression will always return a prvalue. Hence, the resulting reference will usually bind to a temporary whose lifetime ends when std::function::operator() returns.
+
+pros 
+
+ std::function implements a technique called type-erasure because of which you can store any callable entity in std::function , be it functors, member functions, or free functions — you can even store member-data as well which seems counter intuitive!
+
+cons 
+
+There are downsides to std::functions: They use more space, they may have to perform a heap allocation on construction (depending on the size of your functor) and they may add to your compile and link time because you're compiling a new template for everything.
+
+========================================================================================================================================================================================================================================================================================
+
+
+Q3. How can C++ templates be used instead of an std::function object to store a function?
+
+
+
+example code
+
+#include <functional>
+#include <chrono>
+#include <iostream>
+
+template <typename F>
+float calc1(F f, float x) { 
+  return 1.0f + 0.002*x+f(x*1.223) ; 
+}
+
+float calc2(std::function<float(float)> f,float x) { 
+  return 1.0f + 0.002*x+f(x*1.223) ; 
+}
+
+int main() {
+    using namespace std::chrono;
+
+    const auto tp1 = high_resolution_clock::now();
+
+    float result=0;
+    for (int i = 0; i < 1e8; ++i) {
+      result=calc1([](float arg){ 
+          return arg * 0.5f; 
+        },result);
+    }
+    const auto tp2 = high_resolution_clock::now();
+
+    const auto d = duration_cast<milliseconds>(tp2 - tp1);  
+    std::cout << d.count() << std::endl;
+    std::cout << result<< std::endl;
+    return 0;
+}
+
+
+========================================================================================================================================================================================================================================================================================
+
+Q4. Your code reports and handles different types of exceptions. 
+How would you modify your code to only report exceptions of the same data type and handle them appropriately? 
+How would you differentiate between the different exceptions in this case?
+
+It is required to provide the try-catch and try-finally block to handle the checked exception. 
+In the case of fixed type of exception it can be catch by this code, and that is for same data type ex. catch (std::bad_alloc)
+Bugs or errors that we don't to fixed type we use catch (...).
+
+example code
+
+  MyExceptionDerived e;
+  try {
+    f(e);
+  }
+  catch (std::bad_alloc) {
+    // ...code to handle MyExceptionDerived...  exceptions of the same data type of std::bad_alloc
+  }
+  catch (...) {
+    // ...code to handle other exceptions... exceptions for other data type 
+  }
+

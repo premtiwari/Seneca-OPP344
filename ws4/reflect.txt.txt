@@ -1,0 +1,22 @@
+Topics we leant 
+Rule of five.
+Lvalue, xvalue and rvalue.
+association, aggregation and composition relations.
+Copy constructor, copy assign, move constructor, move assign.
+
+
+•	the difference between the implementations of a composition and an aggregation. Note that both classes Child and ConfirmOrder have an attribute of type const Toy** and yet they are in different relationships with class Toy. Discuss!
+ Composition is used in child class and aggregation is used in confirmOrder.
+In child class when we are using copy constructor or assign here we are making new toy class array but in confirmOrder we are just copy and save the toy pointer array so when distractor of child will call it will delete toys array pointer will all memory that is allocated, but in confirmOrder will not delete the data inside toy pointer array. 
+
+
+•	the difference between the implementations of move and copy functions in a composition and an aggregation.
+In composition.
+Copy function will create new memory for toy pointer, but move function will copy or save the toy pointer.
+
+In aggregation.
+Copy and move function doing same thing it will copy or save the toy pointer only.
+
+
+
+
